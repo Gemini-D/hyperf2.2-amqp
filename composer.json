@@ -31,7 +31,7 @@
         "hyperf/event": "Declare queue and start consumers automatically."
     },
     "replace": {
-        "hyperf/di": "*"
+        "hyperf/amqp": "*"
     },
     "autoload": {
         "psr-4": {
