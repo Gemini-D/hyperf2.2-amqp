@@ -1,6 +1,6 @@
 {
-    "name": "hyperf/amqp",
-    "description": "A amqplib for hyperf.",
+    "name": "gemini/hyperf2.2-amqp",
+    "description": "A beta amqplib component for hyperf2.2",
     "license": "MIT",
     "keywords": [
         "php",
@@ -17,10 +17,10 @@
     "require": {
         "php": ">=7.2",
         "doctrine/instantiator": "^1.2.0",
-        "hyperf/contract": "~2.2.0",
-        "hyperf/utils": "~2.2.0",
-        "hyperf/process": "~2.2.0",
-        "hyperf/pool": "~2.2.0",
+        "hyperf/contract": "^2.1",
+        "hyperf/utils": "^2.1",
+        "hyperf/process": "^2.1",
+        "hyperf/pool": "^2.1",
         "php-amqplib/php-amqplib": "^3.0",
         "psr/container": "^1.0|^2.0",
         "psr/event-dispatcher": "^1.0",
@@ -29,6 +29,9 @@
     "suggest": {
         "hyperf/di": "Required to use annotations.",
         "hyperf/event": "Declare queue and start consumers automatically."
+    },
+    "replace": {
+        "hyperf/di": "*"
     },
     "autoload": {
         "psr-4": {
@@ -45,7 +48,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.1-dev"
+            "dev-main": "2.2-dev"
         },
         "hyperf": {
             "config": "Hyperf\\Amqp\\ConfigProvider"
