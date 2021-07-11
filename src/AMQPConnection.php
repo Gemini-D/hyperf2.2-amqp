@@ -15,6 +15,7 @@ use Hyperf\Engine\Channel;
 use Hyperf\Utils\Coordinator\Constants;
 use Hyperf\Utils\Coordinator\CoordinatorManager;
 use Hyperf\Utils\Coroutine;
+use Hyperf\Utils\Exception\ChannelClosedException;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AbstractConnection;
 use PhpAmqpLib\Exception\AMQPRuntimeException;
@@ -185,6 +186,12 @@ class AMQPConnection extends AbstractConnection
         }
     }
 
+    public function close($reply_code = 0, $reply_text = '', $method_sig = [0, 0])
+    {
+        $this->channelManager->flush();
+        return parent::close($reply_code, $reply_text, $method_sig);
+    }
+
     protected function makeChannelId(): int
     {
         for ($i = 0; $i < $this->channel_max; ++$i) {
@@ -231,6 +238,9 @@ class AMQPConnection extends AbstractConnection
         if ($data === false) {
             if ($chan->isTimeout()) {
                 throw new AMQPTimeoutException('Timeout waiting on channel');
+            }
+            if ($chan->isClosing()) {
+                throw new ChannelClosedException('Wait channel was closed.');
             }
         }
 
